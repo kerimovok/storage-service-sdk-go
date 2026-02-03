@@ -387,6 +387,27 @@ func (c *Client) DownloadFile(fileID string) (*http.Response, error) {
 	return resp, nil
 }
 
+// ServeFileContent performs GET /files/:id/content and returns the HTTP response for inline display (e.g. images).
+// Response has correct Content-Type, Content-Disposition: inline, and caching headers (ETag, Cache-Control).
+// Caller must close resp.Body. Use for <img src> or inline display; use DownloadFile for attachment.
+// Returns 200 with body or 304 Not Modified when If-None-Match matches.
+func (c *Client) ServeFileContent(fileID string) (*http.Response, error) {
+	if fileID == "" {
+		return nil, fmt.Errorf("file ID is required")
+	}
+	path := apiPathPrefix + "/files/" + pathSeg(fileID) + "/content"
+	resp, err := c.doRequest(http.MethodGet, path, nil)
+	if err != nil {
+		return nil, fmt.Errorf("failed to serve file content: %w", err)
+	}
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusNotModified {
+		body, _ := io.ReadAll(resp.Body)
+		resp.Body.Close()
+		return nil, parseErrorResponse(resp.StatusCode, body)
+	}
+	return resp, nil
+}
+
 // GetFileLimitsResponse represents the response from getting file limits
 type GetFileLimitsResponse struct {
 	Success bool   `json:"success"`
