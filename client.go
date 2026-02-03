@@ -257,11 +257,11 @@ type UploadFileResponse struct {
 	Message string `json:"message"`
 	Status  int    `json:"status"`
 	Data    struct {
-		UploadedFiles []FileItem               `json:"uploaded_files"`
-		TotalFiles    int                      `json:"total_files"`
+		UploadedFiles []FileItem               `json:"uploadedFiles"`
+		TotalFiles    int                      `json:"totalFiles"`
 		Successful    int                      `json:"successful"`
 		Failed        int                      `json:"failed"`
-		FailedUploads []map[string]interface{} `json:"failed_uploads,omitempty"`
+		FailedUploads []map[string]interface{} `json:"failedUploads,omitempty"`
 	} `json:"data"`
 }
 
@@ -289,24 +289,24 @@ type ValidateFileResponse struct {
 	Message string `json:"message"`
 	Status  int    `json:"status"`
 	Data    struct {
-		ValidationResults []ValidationResultItem `json:"validation_results"`
-		TotalFiles        int                    `json:"total_files"`
+		ValidationResults []ValidationResultItem `json:"validationResults"`
+		TotalFiles        int                    `json:"totalFiles"`
 	} `json:"data"`
 }
 
 // ValidationResultItem represents one file validation result
 type ValidationResultItem struct {
-	OriginalName     string `json:"original_name"`
+	OriginalName     string `json:"originalName"`
 	Extension        string `json:"extension"`
 	Size             int64  `json:"size"`
-	SizeFormatted    string `json:"size_formatted"`
-	HeaderMimeType   string `json:"header_mime_type"`
-	DetectedMimeType string `json:"detected_mime_type"`
-	IsAllowed        bool   `json:"is_allowed"`
+	SizeFormatted    string `json:"sizeFormatted"`
+	HeaderMimeType   string `json:"headerMimeType"`
+	DetectedMimeType string `json:"detectedMimeType"`
+	IsAllowed        bool   `json:"isAllowed"`
 	Category         string `json:"category"`
 	Description      string `json:"description"`
-	MaxSize          int64  `json:"max_size"`
-	MaxSizeFormatted string `json:"max_size_formatted"`
+	MaxSize          int64  `json:"maxSize"`
+	MaxSizeFormatted string `json:"maxSizeFormatted"`
 }
 
 // ValidateFile validates files without uploading. filePaths are local paths.
@@ -393,9 +393,9 @@ type GetFileLimitsResponse struct {
 	Message string `json:"message"`
 	Status  int    `json:"status"`
 	Data    struct {
-		DefaultMaxSize int64                  `json:"default_max_size"`
+		DefaultMaxSize int64                  `json:"defaultMaxSize"`
 		Extensions     map[string]int64       `json:"extensions"`
-		UploadLimits   map[string]interface{} `json:"upload_limits"`
+		UploadLimits   map[string]interface{} `json:"uploadLimits"`
 	} `json:"data"`
 }
 
