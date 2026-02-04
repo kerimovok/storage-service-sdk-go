@@ -20,8 +20,6 @@ go get github.com/kerimovok/storage-service-sdk-go
 - **Search & pagination**: List files with query string (filters, page,
   per_page)
 - **Download**: Get file metadata or download file bytes
-- **Serve content**: Inline file serving (correct Content-Type, caching) for
-  images and display in browser
 
 ## Quick Start
 
@@ -85,12 +83,8 @@ func main() {
 - **ListFiles(queryString)** – Paginated list/search; pass query string (e.g.
   `page=1&per_page=20`, `status_eq=active`, `file_type_eq=jpg`)
 - **GetFile(fileID)** – Get file metadata by ID
-- **DownloadFile(fileID)** – Download file (attachment); returns
-  `*http.Response` (caller must close `Body`)
-- **ServeFileContent(fileID)** – Serve file content inline (correct
-  Content-Type, caching headers); returns `*http.Response` (caller must close
-  `Body`). Use for `<img src>` or inline display; use **DownloadFile** for
-  attachment.
+- **DownloadFile(fileID)** – Download file; returns `*http.Response` (caller
+  must close `Body`)
 - **GetFileLimits()** – Get default max size, per-extension limits, and upload
   limits
 - **UpdateFile(fileID, req)** – Update file name, status, or metadata (JSONB)
